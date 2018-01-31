@@ -1,0 +1,32 @@
+#menu {
+  display: block;
+  position: fixed;
+  list-style: none;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: white;
+  top: 100px;
+  left: -110px;
+  width: 100px;
+  margin-right: 10px;
+  padding: 10px;
+  -webkit-transition: left .5s;
+  transition: left .5s;
+}
+
+#menu:hover {
+  left: -5px;
+}
+
+#menu li {
+  padding; 0px;
+  margin: 5px;
+  text-decoration: none;
+}
+
+#menu li a {
+  width: 100%;
+  display: block;
+}
+
+
