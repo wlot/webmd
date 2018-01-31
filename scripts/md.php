@@ -5,7 +5,6 @@ ini_set('display_errors', 1);
 
 $http_path = "/wiki";
 $http_git_path = "/wiki/docs";
-$git_repo_path = getcwd()."/../docs";
 
 require '../../symfony_process/vendor/autoload.php';
 
@@ -16,8 +15,8 @@ spl_autoload_register(function ($class) {
 });
 use Gitonomy\Git\Repository;
 
-$repo = new Repository($git_repo_path);
-$repo->run('pull', array('--all'));
+$repo = new Repository(getcwd()."/..");
+$repo->run('submodule', array('update','--recursive','--remote'));
 
 $markdown = file_get_contents($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME']);
 
