@@ -80,7 +80,7 @@ foreach(array_keys($grep_result) as $key) {
     $li_data .= '<li>'.$line.'</li>';
   }
   $html_grep .= '<div id="result_block">
-  <div><a href="'$http_git_path.$key.'">'.get_md_file_title($key).'</a></div>
+  <div><a href="'.$http_git_path.$key.'">'.get_md_file_title($key).'</a></div>
   <ul>'.$li_data.'</ul>
 </div>';
 }
