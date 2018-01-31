@@ -22,7 +22,7 @@ $markdown = file_get_contents($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME'
 
 require getcwd().'/Parsedown.php';
 
-$parser = new Parsedown();
+$parser = new ParsedownExtra();
 
 $output = $parser->text($markdown);
 
