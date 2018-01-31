@@ -1,0 +1,18 @@
+#md_file_form {
+ display: block;
+ border: solid 1px #ccc;
+ width: 605px;
+ margin: 10px auto 10px;
+ background-color: white;
+ border-radius: 5px;
+}
+
+#md_file_input {
+ display: block-inline;
+ width: 500px;
+}
+
+#md_file_submit {
+ display: block-inline;
+ width: 100px;
+}
