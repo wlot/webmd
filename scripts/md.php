@@ -75,6 +75,7 @@ function get_html_menu()
 $html_header = '<head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="/wiki/css/markdown.css">
+  <link rel="stylesheet" href="/wiki/css/menu.css">
 </head>';
 
 $html_menu = get_html_menu();

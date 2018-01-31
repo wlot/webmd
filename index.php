@@ -59,7 +59,7 @@ strtok('','');
 function get_md_file_title($md_file)
 {
   $title = "Unbekannt";
-  if ($file = fopen('docs/'.$md_file, "r")) {
+  if ($file = fopen($md_file, "r")) {
     while (!feof($file)) {
       $line = fgets($file);
       if (preg_match('/^# .*$/', $line)) {
@@ -80,16 +80,49 @@ foreach(array_keys($grep_result) as $key) {
     $li_data .= '<li>'.$line.'</li>';
   }
   $html_grep .= '<div id="result_block">
-  <div><a href="'.$http_git_path.$key.'">'.get_md_file_title($key).'</a></div>
+  <div><a href="'.$http_git_path.$key.'">'.get_md_file_title('docs/'.$key).'</a></div>
   <ul>'.$li_data.'</ul>
 </div>';
 }
 
+function get_html_menu()
+{
+  $md_files = array();
+  $www_path = '/var/www/wiki/docs';
+
+  if ($dir_handle = opendir($www_path)) {
+    while (false !== ($entry = readdir($dir_handle))) {
+      if (preg_match('/^.*\.md$/', $entry)) {
+        if ($entry != "index.md" && $entry != "template.md") {
+          array_push($md_files, $entry);
+        }
+      }
+    }
+    closedir($dir_handle);
+  }
+
+  asort($md_files);
+
+  $menu = '<ul id="menu">';
+
+  foreach ($md_files as &$md_file) {
+    $title = get_md_file_title($www_path."/".$md_file);
+    $menu .= '<li><a href="http://homeserver/wiki/docs/'.$md_file.'">'.$title.'</a></li>';
+  }
+
+  $menu .= '</ul>';
+
+  return $menu;
+}
+
+$html_menu = get_html_menu();
+
 $html='<html>
   <head>
     <link rel="stylesheet" href="'.$http_path.'/css/index.css">
+    <link rel="stylesheet" href="'.$http_path.'/css/menu.css">
   </head>
-  <body class="dotted">
+  <body class="dotted">'.$html_menu.'
     <div id="page">
       <h1>Mein Wiki</h1>
       <form action="" method="POST" enctype="multipart/form-data">
