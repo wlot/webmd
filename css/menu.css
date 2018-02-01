@@ -1,32 +1,40 @@
-#menu {
+
+.menu {
   display: block;
   position: fixed;
   list-style: none;
   border: 1px solid #ccc;
   border-radius: 5px;
   background-color: white;
-  top: 100px;
-  left: -110px;
-  width: 100px;
-  margin-right: 10px;
+  top: 50px;
+  left: -370px;
+  width: 350px;
   padding: 10px;
+  padding-left: 30px;
   -webkit-transition: left .5s;
   transition: left .5s;
 }
 
-#menu:hover {
+.menu:hover {
   left: -5px;
 }
 
-#menu li {
+.menu h3 {
+  mergin: 5px;
+  padding: 5px;
+  cursor: default;
+}
+
+.menu li {
   padding; 0px;
   margin: 5px;
   text-decoration: none;
 }
 
-#menu li a {
+.menu li a {
   width: 100%;
   display: block;
+  color: #4183C4;
+  text-decoration: none;
 }
-
 
