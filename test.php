@@ -1,58 +1,40 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include getcwd().'/scripts/common.php';
 
-$http_path = "/wiki";
+$md = new Markdown();
+$html = new Html();
 
-require getcwd().'/scripts/Parsedown.php';
+$links = array('test');
+$body = '
+<form id="md_file_form" action="" method="POST" enctype="multipart/form-data">
+<input id="md_file_input" type="file" name="md_file" accept="text/markdown" />
+<input id="md_file_submit" type="submit" value="Testen" />
+</form>';
 
-function is_md_file()
-{
-  if(!empty($_FILES['md_file']['name']) && $_FILES['md_file']['type'] == "text/markdown") {
-    return true;
-  } else {
-    return false;
-  }
-}
+$html_get_file = $html->get_html($links, $body);
 
-$get_file_html='
-<html>
-  <head>
-    <link rel="stylesheet" href="'.$http_path.'/css/test.css">
-  </head>
-  <body>
-    <form id="md_file_form" action="" method="POST" enctype="multipart/form-data">
-      <input id="md_file_input" type="file" name="md_file" accept="text/markdown" />
-      <input id="md_file_submit" type="submit" value="Testen" />
-    </form>
-  </body>
-</html>';
-
-if (!is_md_file())
-  echo $get_file_html;
+if (!$md->is_md_file())
+  echo $html_get_file;
 else
 {
   $markdown = file_get_contents($_FILES['md_file']['tmp_name']);
 
-  $parser = new Parsedown();
+  $parser = new ParsedownExtra();
   $output = $parser->text($markdown);
 
-  $html_header = '<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="'.$http_path.'/css/markdown.css">
-  <link rel="stylesheet" href="'.$http_path.'/css/test.css">
-</head>';
+  $output = $md->get_output($_FILES['md_files']['tmp_name']);
 
-  $html = "<html>";
-  $html .= $html_header;
-  $html .= '<body class="dotted">
+  $links = array('markdown', 'test');
+  $body_attr = 'class="dotted"';
+  $body = '
 <form id="md_file_form" action="" method="POST" enctype="multipart/form-data">
 <input id="md_file_input" type="file" name="md_file" accept="text/markdown" />
 <input id="md_file_submit" type="submit" value="Neu Laden" />
 </form>
-<div id="page">'.$output.'</div></body>';
-  $html .= "</html>";
+<div id="page">'.$output.'</div>';
+
+  $html_output = $html->get_html($links, $body, $body_attr);
 
   echo $html;
 }
