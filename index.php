@@ -4,10 +4,7 @@ include getcwd().'/scripts/common.php';
 
 $html = new Html();
 $md = new Markdown();
-
-require '../symfony_process/vendor/autoload.php';
-
-use Gitonomy\Git\Repository;
+$git = new Git();
 
 $grep = "";
 
@@ -17,17 +14,16 @@ if (isset($_POST['search_text']) && array_key_exists('search_text', $_POST)) {
   $search = "";
 }
 
-$repo = new Repository(getcwd().'/docs');
-$repo->run('pull', array('--all'));
+$git->pull();
 
 $grep_result = false;
 if (!empty($search)) {
-  try {
-    $grep = $repo->run('grep', array('-i',$search));
-    $grep_result = true;
-  } catch(Exception $e) {
-    $grep = "Keine Treffer:".$e;
-  }
+    $grep = $git->grep($search);
+    if (!empty($grep)) {
+      $grep_result = true;
+    } else {
+      $grep = "Kein Treffer";
+    }
 }
 
 $html_grep = $grep; 

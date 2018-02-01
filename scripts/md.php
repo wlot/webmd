@@ -4,16 +4,9 @@ include_once getcwd().'/common.php';
 
 $md = new Markdown();
 $html = new Html();
+$git = new Git();
 
-require '../../symfony_process/vendor/autoload.php';
-
-$git_repo = 'docs';
-$git_repo_path = '/var/www/wiki/'.$git_repo;
-
-use Gitonomy\Git\Repository;
-
-$repo = new Repository($git_repo_path);
-$repo->run('pull', array('--all'));
+$git->pull();
 
 $output = $md->get_output($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_NAME']);
 
