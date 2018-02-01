@@ -3,82 +3,40 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-$http_path = "/wiki";
-$http_git_path = "/wiki/docs";
-
 require '../../symfony_process/vendor/autoload.php';
+require 'menu.php';
 
-// Update git repo if necessary.
+$git_repo = 'linuxos-docs';
+$git_repo_path = '/var/www/markdown/'.$git_repo;
+
 spl_autoload_register(function ($class) {
   $class_file = str_replace("\\", "/", $class);
-  include getcwd().'/' . $class_file . '.php';
+  include getcwd().'/'.$class_file.'.php';
 });
+
 use Gitonomy\Git\Repository;
 
-$repo = new Repository(getcwd()."/..");
-$repo->run('submodule', array('update','--recursive','--remote'));
+$repo = new Repository($git_repo_path);
+
+$repo->run('pull', array('--all'));
 
 $markdown = file_get_contents($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME']);
 
-require getcwd().'/Parsedown.php';
+require getcwd().'/parsedown/Parsedown.php';
+require getcwd().'/parsedown/ParsedownExtra.php';
 
 $parser = new ParsedownExtra();
 
 $output = $parser->text($markdown);
 
-function get_md_file_title($md_file)
-{
-  $title = "Unbekannt";
-  if ($file = fopen($md_file, "r")) {
-    while (!feof($file)) {
-      $line = fgets($file);
-      if (preg_match('/^# .*$/', $line)) {
-        $title = substr($line, 2, strpos($line, 'White') - 1);
-      }
-    }
-    fclose($file);
-  }
-
-  return $title;
-}
-
-function get_html_menu()
-{
-  $md_files = array();
-  $www_path = '/var/www/wiki/docs';
-
-  if ($dir_handle = opendir($www_path)) {
-    while (false !== ($entry = readdir($dir_handle))) {
-      if (preg_match('/^.*\.md$/', $entry)) {
-        if ($entry != "index.md" && $entry != "template.md") {
-          array_push($md_files, $entry);
-        }
-      }
-    }
-    closedir($dir_handle);
-  }
-
-  asort($md_files);
-
-  $menu = '<ul id="menu">';
-
-  foreach ($md_files as &$md_file) {
-    $title = get_md_file_title($www_path."/".$md_file);
-    $menu .= '<li><a href="http://homeserver/wiki/docs/'.$md_file.'">'.$title.'</a></li>';
-  }
-
-  $menu .= '</ul>';
-
-  return $menu;
-}
-
 $html_header = '<head>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/wiki/css/markdown.css">
-  <link rel="stylesheet" href="/wiki/css/menu.css">
+  <link rel="stylesheet" href="/css/markdown.css">
+  <link rel="stylesheet" href="/css/menu.css">
 </head>';
 
-$html_menu = get_html_menu();
+$html_menu = '';
+get_html_menu($git_repo_path, "", $html_menu);
 
 $html = "<html>";
 $html .= $html_header;
