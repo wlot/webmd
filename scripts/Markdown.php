@@ -1,18 +1,18 @@
 <?php
 
-class Markdown()
+class Markdown
 {
   public function __construct()
   {
   }
 
-  public function is_md_file()
+  public function get_output($md_file)
   {
-    if (!empty($_FILES['md_file']['name']) && $_FILES['md_file']['type'] == "text/markdown") {
-      return true;
-    } else {
-      return false;
-    }
+    $content = file_get_contents($md_file);
+    $parser = new ParsedownExtra();
+    $output = $parser->text($content);
+
+    return $output;
   }
 }
 
