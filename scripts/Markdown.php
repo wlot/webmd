@@ -14,6 +14,25 @@ class Markdown
 
     return $output;
   }
+
+  public function get_file_title($md_file)
+  {
+    $title = "Unbekannt";
+
+    if ($file = fopen($md_file, "r")) {
+      $done = false;
+      while (!$done && !feof($file)) {
+        $line = fgets($file);
+        if (preg_match('/^# .*$/', $line)) {
+          $title = substr($line, 2);
+          $done = true;
+        }
+     }
+     fclose($file);
+   }
+
+   return $title;
+  }
 }
 
 ?>
