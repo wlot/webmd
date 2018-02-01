@@ -82,7 +82,7 @@ $body = '
     <input id="search_text" type="text" name="search_text" />
     <input id="search_submit" type="submit" value="Suchen" />
   </form>
-  <form id="test_form" action="/test.php" >
+  <form id="test_form" action="/wiki/test.php" >
     <input id="test_submit" type="submit" value="Test" />
   </form>
 </div>';
