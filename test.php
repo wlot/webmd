@@ -13,7 +13,7 @@ function is_md_file()
     return false;
 }
 
-$links = array('test');
+$links = array('test', 'menu');
 $body = '
 <form id="md_file_form" action="" method="POST" enctype="multipart/form-data">
 <input id="md_file_input" type="file" name="md_file" accept="text/markdown" />
@@ -28,7 +28,7 @@ else
 {
   $output = $md->get_output($_FILES['md_file']['tmp_name']);
 
-  $links = array('markdown', 'test');
+  $links = array('markdown', 'test', 'menu');
   $body_attr = 'class="dotted"';
   $body = '
 <form id="md_file_form" action="" method="POST" enctype="multipart/form-data">
