@@ -1,3 +1,15 @@
+body {
+  font-family: Helvetica, arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.6;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: white;
+  padding: 30px;
+  color: #333;
+  background-color: #eefefe;
+}
+
 #md_file_form {
  display: block;
  border: solid 1px #ccc;
