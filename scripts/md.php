@@ -1,48 +1,27 @@
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+include_once getcwd().'/common.php';
+
+$md = new Markdown();
+$html = new Html();
 
 require '../../symfony_process/vendor/autoload.php';
-require 'menu.php';
 
-$git_repo = 'linuxos-docs';
-$git_repo_path = '/var/www/markdown/'.$git_repo;
-
-spl_autoload_register(function ($class) {
-  $class_file = str_replace("\\", "/", $class);
-  include getcwd().'/'.$class_file.'.php';
-});
+$git_repo = 'docs';
+$git_repo_path = '/var/www/wiki/'.$git_repo;
 
 use Gitonomy\Git\Repository;
 
 $repo = new Repository($git_repo_path);
-
 $repo->run('pull', array('--all'));
 
-$markdown = file_get_contents($_SERVER['DOCUMENT_ROOT'] . $_SERVER['SCRIPT_NAME']);
+$output = $md->get_output($_SERVER['DOCUMENT_ROOT'].$_SERVER['SCRIPT_NAME']);
 
-require getcwd().'/parsedown/Parsedown.php';
-require getcwd().'/parsedown/ParsedownExtra.php';
+$links = array('markdown', 'menu');
+$body_attr = 'class="dotted"';
+$body = '<div id="page">'.$output.'</div></body>';
 
-$parser = new ParsedownExtra();
+$html_output = $html->get_html($links, $body, $body_attr);
 
-$output = $parser->text($markdown);
-
-$html_header = '<head>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="/css/markdown.css">
-  <link rel="stylesheet" href="/css/menu.css">
-</head>';
-
-$html_menu = '';
-get_html_menu($git_repo_path, "", $html_menu);
-
-$html = "<html>";
-$html .= $html_header;
-$html .= "<body class=\"dotted\">".$html_menu."<div id=\"page\">".$output."</div></body>";
-$html .= "</html>";
-
-echo $html;
-
+echo $html_output;
 ?>
