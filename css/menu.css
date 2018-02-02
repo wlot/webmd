@@ -1,40 +1,64 @@
 
-.menu {
+ul.menu {
   display: block;
   position: fixed;
   list-style: none;
   border: 1px solid #ccc;
-  border-radius: 5px;
-  background-color: white;
-  top: 50px;
-  left: -370px;
-  width: 350px;
-  padding: 10px;
-  padding-left: 30px;
-  -webkit-transition: left .5s;
-  transition: left .5s;
+  background-color: #333;
+  top: 0px;
+  width: 100%;
+  height: 40px;
+  -webkit-transition: top .5s;
+  transition: top .5s;
+  margin: 0px;
+  padding: 0px;
 }
 
 .menu:hover {
-  left: -5px;
-}
-
-.menu h3 {
-  mergin: 5px;
-  padding: 5px;
-  cursor: default;
+  top: 0px;
 }
 
 .menu li {
-  padding; 0px;
-  margin: 5px;
+  padding: 0px;
+  margin: 0px;
+  margin-left: 5px;
   text-decoration: none;
+  color: white;
+  float: left;
+  display: inline-block;
 }
 
-.menu li a {
-  width: 100%;
+.dropdown:hover {
+  background-color: #8ab63b;
+}
+
+div.dropbtn {
+  height: 30px;
+  cursor: pointer;
+  text-align: center;
+  padding: 5px 16px;
+  font-size: 17px;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  border: solid 1px #ccc;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  background-color: white;
+}
+
+.submenu a {
   display: block;
-  color: #4183C4;
-  text-decoration: none;
+  padding: 5px;
 }
 
+.submenu a:hover {
+  background-color: #eee;
+}
+
+.dropdown:hover .submenu {
+  display: block;
+}

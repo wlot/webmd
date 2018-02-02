@@ -5,9 +5,9 @@ body {
   padding-top: 10px;
   padding-bottom: 10px;
   background-color: white;
-  padding: 30px;
   color: #333;
   background-color: #eefefe;
+  margin: 0px;
 }
 
 body > *:first-child {
@@ -23,14 +23,13 @@ body > *:last-child {
   width: 1200px;
   border: 1px solid #ccc;
   padding: 25px;
-  margin: 15px auto;
+  margin: 60px auto;
   border-radius: 5px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   background-color: #fff;
 }
 
 .dotted {
-  padding: 2.25em 1.6875em;
   background-image: -webkit-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
   background-image: -moz-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
   background-image: -ms-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
@@ -41,7 +40,7 @@ body > *:last-child {
 }
 
 a { 
-  color: #4183C4;
+  color: #8ab63b;
   text-decoration: none;
 }
 
