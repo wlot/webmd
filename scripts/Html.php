@@ -11,7 +11,8 @@ class Html
   public function get_html($links, $body, $body_attr = "")
   {
     $html = '<html><head>
-<meta name="viewport" content="width=device-width, initial-scale=1" />';
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link rel="stylesheet" href="'.$this->http_path.'/css/common.css">';
 
     foreach ($links as &$link) {
       $html .= '<link rel="stylesheet" href="'.$this->http_path.'/css/'.$link.'.css">';
@@ -31,7 +32,8 @@ class Html
     $is_meta_file = false;
 
     if (empty($subdir)) {
-      $menu = '<ul class="menu">';
+      $menu = '<ul class="menu">
+<li class="dropdown"><a class="dropbtn" href="'.$this->http_path.'">Home</a></li>';
     }
 
     if ($dir_handle = opendir($this->git_repo_path.'/'.$subdir)) {

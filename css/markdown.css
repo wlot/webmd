@@ -1,47 +1,9 @@
-body {
-  font-family: Helvetica, arial, sans-serif;
-  font-size: 14px;
-  line-height: 1.6;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  background-color: white;
-  color: #333;
-  background-color: #eefefe;
-  margin: 0px;
-}
-
 body > *:first-child {
   margin-top: 0 !important;
 }
 
 body > *:last-child {
   margin-bottom: 0 !important;
-}
-
-#page {
-  display: block;
-  width: 1200px;
-  border: 1px solid #ccc;
-  padding: 25px;
-  margin: 60px auto;
-  border-radius: 5px;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  background-color: #fff;
-}
-
-.dotted {
-  background-image: -webkit-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
-  background-image: -moz-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
-  background-image: -ms-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
-  background-image: repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
-  -webkit-background-size: 5px 5px;
-  -moz-background-size: 5px 5px;
-  background-size: 5px 5px;
-}
-
-a { 
-  color: #8ab63b;
-  text-decoration: none;
 }
 
 a.absent {

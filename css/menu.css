@@ -32,12 +32,15 @@ ul.menu {
   background-color: #8ab63b;
 }
 
-div.dropbtn {
+.dropbtn {
   height: 30px;
   cursor: pointer;
   text-align: center;
   padding: 5px 16px;
+  margin: 0px;
   font-size: 17px;
+  color: white;
+  display: block;
 }
 
 .submenu {
