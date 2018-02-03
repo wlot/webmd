@@ -15,13 +15,12 @@ if (isset($_POST['search_text']) && array_key_exists('search_text', $_POST)) {
 }
 
 $git->pull();
-$grep_results = array();
+$html_grep  = "";
 
 if (!empty($search)) {
   $grep_results = $git->grep($search);
+  $html_grep = $html->get_grep_html($grep_results);
 }
-
-$html_grep = $html->get_grep_html($grep_results);
 
 $links = array('index', 'menu');
 $body_attr = 'class="dotted"';
