@@ -74,6 +74,48 @@ class Html
       $menu .= '</ul>';
     }
   }
+
+  public function get_grep_html($grep_results) 
+  {
+    $ret = "";
+    $results = array();
+    $md = new Markdown();
+
+    if (count($grep_results) > 0) {
+      foreach($grep_results as &$grep_result) {
+        $pos = strpos($grep_result, ':');
+
+        if ($pos > 0) {
+          $file_name = substr($grep_result, 0, $pos);
+          $result = substr($grep_result, $pos + 1);
+        } else {
+          continue;
+        }
+
+        if (!isset($results[$file_name]) || !array_key_exists($file_name, $results)) {
+          $results[$file_name] = array();
+        }
+
+        $array = &$results[$file_name];
+        array_push($array, $result);
+      }
+
+      foreach(array_keys($results) as $key) {
+        $li_data = '';
+        foreach($results[$key] as $data) {
+          $li_data .= "<li>".$data."</li>\n";
+        }
+        $ret .= '<div id="result_block">
+  <div><a href="'.$this->http_git_path.'/'.$key.'">'.$md->get_file_title($this->git_repo_path.'/'.$key).'</a></div>
+  <ul>'.$li_data.'</ul>
+</div>';
+      }
+    } else {
+      $ret = "Kein Treffer";
+    }
+
+    return $ret;
+  }
 }
 // vim: tabstop=2 shiftwidth=2 expandtab number
 ?>

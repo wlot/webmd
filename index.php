@@ -15,56 +15,13 @@ if (isset($_POST['search_text']) && array_key_exists('search_text', $_POST)) {
 }
 
 $git->pull();
+$grep_results = array();
 
-$grep_result = false;
 if (!empty($search)) {
-    $grep = $git->grep($search);
-    if (!empty($grep)) {
-      $grep_result = true;
-    } else {
-      $grep = "Kein Treffer";
-    }
+  $grep_results = $git->grep($search);
 }
 
-$html_grep = $grep; 
-
-if ($grep_result) {
-  $html_grep = '';
-  $grep_result = array();
-
-  $line = strtok($grep, PHP_EOL);
-  while($line !== FALSE) {
-    $pos = strpos($line, ':');
-    if ($pos > 0) {
-      $file_name = substr($line, 0, $pos);
-      $result = substr($line, $pos + 1);
-    } else {
-      continue;
-    }
-  
-    if (!isset($grep_result[$file_name]) || !array_key_exists($file_name, $grep_result)) {
-      $grep_result[$file_name] = array();
-    }
-
-    $array = &$grep_result[$file_name]; 
-    array_push($array, $result);
-
-    $line = strtok(PHP_EOL);
-  }
-
-  strtok('','');
-
-  foreach(array_keys($grep_result) as $key) {
-    $li_data = '';
-    foreach($grep_result[$key] as $line) {
-      $li_data .= '<li>'.$line.'</li>';
-    }
-    $html_grep .= '<div id="result_block">
-  <div><a href="/wiki/docs/'.$key.'">'.$md->get_file_title('/var/www/wiki/docs/'.$key).'</a></div>
-  <ul>'.$li_data.'</ul>
-</div>';
-  }
-}
+$html_grep = $html->get_grep_html($grep_results);
 
 $links = array('index', 'menu');
 $body_attr = 'class="dotted"';
@@ -92,4 +49,6 @@ $body .= '</div>';
 $html_output = $html->get_html($links, $body, $body_attr);
 
 echo $html_output
+
+// vim: tabstop=2 shiftwidth=2 expandtab number
 ?>
