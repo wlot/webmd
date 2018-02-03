@@ -6,6 +6,10 @@ body > *:last-child {
   margin-bottom: 0 !important;
 }
 
+#toc {
+  list-style: none;
+}
+
 a.absent {
   color: #cc0000;
 }
