@@ -41,4 +41,5 @@ else
 
   echo $html_output;
 }
+// vim: tabstop=2 shiftwidth=2 expandtab number
 ?>
