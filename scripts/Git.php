@@ -2,9 +2,13 @@
 
 class Git
 {
-  private $git_repo_path = "/var/www/wiki/docs";
+  private $git_repo_path;
 
-  public function __construct() {}
+  public function __construct()
+  {
+    global $git_repo_path;
+    $this->git_repo_path = $git_repo_path;
+  }
 
   public function pull()
   {
