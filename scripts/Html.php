@@ -2,11 +2,20 @@
 
 class Html
 {
-  private $http_path = "/wiki";
-  private $http_git_path = "/wiki/docs";
-  private $git_repo_path = "/var/www/wiki/docs";
+  private $http_path;
+  private $http_git_path;
+  private $git_repo_path;
 
-  public function __construct() {}
+  public function __construct()
+  {
+    global $git_repo_path;
+    global $http_path;
+    global $http_git_path;
+
+    $this->http_path = $http_path;
+    $this->http_git_path = $http_git_path;
+    $this->git_repo_path = $git_repo_path;
+  }
 
   public function get_html($links, $body, $body_attr = "")
   {
@@ -33,7 +42,7 @@ class Html
 
     if (empty($subdir)) {
       $menu = '<ul class="menu">
-<li class="dropdown"><a class="dropbtn" href="'.$this->http_path.'">Home</a></li>';
+<li class="dropdown"><a class="dropbtn" href="'.$this->http_path.'/">Home</a></li>';
     }
 
     if ($dir_handle = opendir($this->git_repo_path.'/'.$subdir)) {
