@@ -57,7 +57,7 @@ class Html
           $is_meta_file = true;
         } else if (is_dir($this->git_repo_path.'/'.$subdir.'/'.$entry)) {
           if (!preg_match('/^\..*/', $entry) && $entry !== "imgs" && $entry !== "data") {
-            $this->get_menu($entry, $menu);
+            $this->get_menu($subdir.'/'.$entry, $menu);
           }
         }
       }
